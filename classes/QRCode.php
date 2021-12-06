@@ -32,8 +32,16 @@ final class QRCode
         
         $text = A::get($this->options, 'Text');
         $this->qrCode->data($text);
+        
+        $foregroundColor_arr = A::get($this->options, 'ForegroundColor');
+        $foregroundColor = new \Endroid\QrCode\Color\Color($foregroundColor_arr['r'],$foregroundColor_arr['g'],$foregroundColor_arr['b'],$foregroundColor_arr['a']);
+        $this->options['ForegroundColor'] = $foregroundColor;
 
-        foreach ($options as $option => $value) {
+        $backgroundColor_arr = A::get($this->options, 'BackgroundColor');
+        $backgroundColor = new \Endroid\QrCode\Color\Color($backgroundColor_arr['r'],$backgroundColor_arr['g'],$backgroundColor_arr['b'],$backgroundColor_arr['a']);
+        $this->options['BackgroundColor'] = $backgroundColor;
+
+        foreach ($this->options as $option => $value) {
             if (method_exists($this->qrCode, $option) === false) {
                 continue;
             }
